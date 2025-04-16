@@ -1,0 +1,3 @@
+- [ ] https://chameleon-llm.github.io/ 처럼 graph 등 표현
+- [ ] 코드 분리
+- [ ] 안정화
