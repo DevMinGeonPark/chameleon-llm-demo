@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: chameleon-llm-demo
+    env: python
+    buildCommand: |
+      pip install -r requirements.txt
+    startCommand: streamlit run web_app/app.py
+    envVars:
+      - key: PYTHONPATH
+        value: /app
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: BING_SEARCH_API_KEY
+        sync: false
