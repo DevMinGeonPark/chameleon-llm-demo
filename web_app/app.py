@@ -55,10 +55,10 @@ def check_api_keys():
 
 def stream_process_output(process, queue):
     """프로세스의 출력을 큐에 저장하는 함수"""
-    for line in iter(process.stdout.readline, ''):
-        queue.put(('stdout', line))
-    for line in iter(process.stderr.readline, ''):
-        queue.put(('stderr', line))
+    for line in iter(process.stdout.readline, b''):
+        queue.put(('stdout', line.decode('utf-8')))
+    for line in iter(process.stderr.readline, b''):
+        queue.put(('stderr', line.decode('utf-8')))
     process.stdout.close()
     process.stderr.close()
 
@@ -77,8 +77,8 @@ def run_experiment(command, env_vars=None):
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
         env=env,
-        bufsize=0,  # 버퍼링 비활성화
-        universal_newlines=True  # 텍스트 모드 사용
+        bufsize=1,
+        universal_newlines=False  # 바이너리 모드 사용
     )
     
     # 출력을 저장할 큐 생성
@@ -177,7 +177,7 @@ if page == "Home":
         - 실험 실행
         
         - GPT-4를 사용한 10개 test 실험
-        명령어 : python run_scienceqa/run.py \
+        명령어 : python run_scienceqa/run.py \ 
                     --model chameleon \
                     --label chameleon_gpt4 \
                     --policy_engine gpt-4 \
@@ -185,7 +185,7 @@ if page == "Home":
                     --qg_engine gpt-4 \
                     --sg_engine gpt-4 \
                     --test_split test \
-                    --test_number 10
+                    --test_number 10 \
         - 이외에는 공식 문서를 참고하십시오.
         
     2. tabmwp 테스트
