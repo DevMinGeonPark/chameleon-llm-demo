@@ -1,11 +1,76 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+ENV/
 env/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project specific
+*.log
+.env
+.env.local
+
+# Documentation
+Rule.md
+start.md
+Todo.md
+memo.md
+
+# Data and results
+data/
+results/
+*.json
+*.jsonl
+*.csv
+*.tsv
+*.xlsx
+*.xls
+*.db
+*.sqlite3
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb
+
+# Docker
+.docker/
+docker-compose.override.yml
+
 # data/scienceqa/images/
 
 checkpoints/*.pt
 
 *.zip
-*.idea
-*.vscode
 *.DS_Store
 *.ipynb_checkpoints
 *.pyc

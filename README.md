@@ -1,10 +1,98 @@
 # :lizard: Chameleon: Plug-and-Play Compositional Reasoning with GPT-4
 
-![Science Problems](https://img.shields.io/badge/Task-Science_Problems-blue) 
-![Science Problems](https://img.shields.io/badge/Task-MathQA-blue) 
-![Science Problems](https://img.shields.io/badge/Task-TableQA-blue) 
-![Chain-of-Thought](https://img.shields.io/badge/Model-Tool_Use-green) 
-![GPT-4](https://img.shields.io/badge/Model-GPT--4-green) 
+해당 사이트는 DDPS 연구실 지원을 위한 Chameleon Agent Demo Site입니다.
+
+좀 더 커스텀하여 제어를 원하시면 아래의 github repo에서 Dockerfile.local을 실행하여 주십시오.
+https://github.com/DevMinGeonPark/chameleon-llm-demo
+
+- 원본 코드의 중요 폴더, 파일 별 역활
+
+  - run_scienceqa: scienceqa 실험 실행
+  - run_tabmwp: tabmwp 실험 실행
+  - notebooks: 실험 결과 시각화
+  - data: 실험 데이터 및 설치 bash script
+  - results: 실험 결과
+  - utilities.py: 유틸리티 코드 파일
+  - task/model.py: 모델 코드 파일
+  - task/run.py: 실험 실행 코드 파일
+  - task/demos: 자연어로 된 Prompt files
+
+- mingeon fork git의 특수 파일
+  - Dockerfile.local: /bin/bash로 진입하여 자유로운 실험을 할 수 있는 환경 구성
+  - Dockerfile: 웹 애플리케이션 실행 파일 빌드 및 실행
+  - requirements.txt: 실험에 필요한 패키지 목록 구성
+  - render.yaml: 웹 애플리케이션 실행 파일 빌드 및 실행 파일 실행
+
+실행 방법:
+
+- Docker 이미지 빌드:
+  docker build -t chameleon-agent-demo .
+
+- Docker 컨테이너 실행:
+  docker run -it --rm \
+   -p 8501:8501 \
+   -p 8000:8000 \
+   -e DATA_ROOT=/app/data \
+   -e OUTPUT_ROOT=/app/results \
+   chameleon-agent-demo
+- 진입 후 테스트 방법
+
+1. scienceqa 테스트
+
+   - 모델 선택: chameleon, cot
+   - 엔진 선택: gpt-4, gpt-3.5-turbo
+   - 테스트 데이터 수 선택: 10, 100, 1000
+   - 실험 실행
+
+   - GPT-4를 사용한 10개 test 실험
+     명령어 : python run_scienceqa/run.py \
+     --model chameleon \
+      --label chameleon_gpt4 \
+      --policy_engine gpt-4 \
+      --kr_engine gpt-4 \
+      --qg_engine gpt-4 \
+      --sg_engine gpt-4 \
+      --test_split test \
+      --test_number 10 \
+   - 이외에는 공식 문서를 참고하십시오.
+
+2. tabmwp 테스트
+
+   - 모델 선택: chameleon, cot
+   - 엔진 선택: gpt-4, gpt-3.5-turbo
+   - 테스트 데이터 수 선택: 10, 100, 1000
+   - 실험 실행
+
+   - GPT-4를 사용한 10개 test 실험
+     명령어 : python run_tabmwp/run.py \
+      --model chameleon \
+      --label chameleon_gpt4 \
+      --test_split test \
+      --policy_engine gpt-4 \
+      --rl_engine gpt-4 \
+      --cl_engine gpt-4 \
+      --tv_engine gpt-4 \
+      --kr_engine gpt-4 \
+      --sg_engine gpt-4 \
+      --pg_engine gpt-4 \
+      --test_number -1 \
+      --rl_cell_threshold 18 \
+      --cl_cell_threshold 18
+
+3. 결과 분석
+
+You can:
+
+1. 실험을 실행하세요.
+2. 실험 결과는 /app/results 폴더에 저장됩니다.
+3. 필요하다면, 각 폴더의 evaluate.py를 수정하여 결과를 받으세요.
+4. results_viewer_scienceqa.ipynb를 적절히 수정하면 시각화된 형태를 볼 수 있습니다.
+
+![Science Problems](https://img.shields.io/badge/Task-Science_Problems-blue)
+![Science Problems](https://img.shields.io/badge/Task-MathQA-blue)
+![Science Problems](https://img.shields.io/badge/Task-TableQA-blue)
+![Chain-of-Thought](https://img.shields.io/badge/Model-Tool_Use-green)
+![GPT-4](https://img.shields.io/badge/Model-GPT--4-green)
 ![LLMs](https://img.shields.io/badge/Model-LLMs-green)
 
 Code for the Paper "[Chameleon: Plug-and-Play Compositional Reasoning with Large Language Models](https://arxiv.org/abs/2304.09842)".
@@ -20,7 +108,7 @@ Code for the Paper "[Chameleon: Plug-and-Play Compositional Reasoning with Large
 
 ## 💥 News 💥
 
-- **[2023.05.06]** Thrilled to see that our Chameleon paper has been ranked **#1** out of 1,682 AI papers by [AlphaSignal](https://alphasignalai.beehiiv.com/p/weeks-top-5-ai-papers?utm_source=alphasignalai.beehiiv.com&utm_medium=newsletter&utm_campaign=this-week-s-top-5-ai-papers). 
+- **[2023.05.06]** Thrilled to see that our Chameleon paper has been ranked **#1** out of 1,682 AI papers by [AlphaSignal](https://alphasignalai.beehiiv.com/p/weeks-top-5-ai-papers?utm_source=alphasignalai.beehiiv.com&utm_medium=newsletter&utm_campaign=this-week-s-top-5-ai-papers).
 - **[2023.05.05]** We are excited to share that Pan Lu was invited to deliver a talk to the Reasoning Team at Google Brain. View the presentation slides here: [[Slides](https://lupantech.github.io/docs/Chameleon_LLM_Pan_Lu_Google_Brain_2023.05.05.pdf)]
 - **[2023.04.24]** Our work has been featured in a [MarkTechPost](https://www.marktechpost.com/2023/04/24/meet-chameleon-a-plug-and-play-compositional-reasoning-framework-that-harnesses-the-capabilities-of-large-language-models/) article.
 - **[2023.04.23]** Our research has been recognized as one of the "Top ML Papers of the Week" by [DAIR.AI](https://www.linkedin.com/pulse/top-ml-papers-week-dair-ai-8e/?trackingId=w6D1Ow8FxKSTjgdFuwgYnQ%3D%3D).
@@ -29,15 +117,13 @@ Code for the Paper "[Chameleon: Plug-and-Play Compositional Reasoning with Large
 - **[2023.04.20]** Huge thanks to [John Nay](https://twitter.com/johnjnay/status/1649036276627132418) for sharing our work on [Twitter](https://twitter.com/johnjnay/status/1649036276627132418)!
 - **[2023.04.19]** Our research is now listed on [Papers with Code](https://paperswithcode.com/paper/chameleon-plug-and-play-compositional).
 - **[2023.04.19]** We appreciate [Aran Komatsuzaki](https://twitter.com/arankomatsuzaki/status/1648848332977221632) for featuring our work on [Twitter](https://twitter.com/arankomatsuzaki/status/1648848332977221632) in a timely manner!
-- **[2023.04.19]** Special thanks to [@_akhaliq](https://twitter.com/_akhaliq/status/1648851856930533378) for promptly sharing our work on [Twitter](https://twitter.com/_akhaliq/status/1648851856930533378)!
+- **[2023.04.19]** Special thanks to [@\_akhaliq](https://twitter.com/_akhaliq/status/1648851856930533378) for promptly sharing our work on [Twitter](https://twitter.com/_akhaliq/status/1648851856930533378)!
 - **[2023.04.19]** Visit our project's homepage at [Chameleon-LLM](https://chameleon-llm.github.io/).
 - **[2023.04.19]** Our paper is now accessible at https://arxiv.org/abs/2304.09842.
 
-
-
 ## :lizard: About Chameleon
 
-**Chameleon** is a plug-and-play compositional reasoning framework that augments LLMs with various types of tools. **Chameleon** synthesizes programs to compose various tools, including LLM models, off-the-shelf vision models, web search engines, Python functions, and rule-based modules tailored to user interests. Built on top of an LLM as a natural language planner, **Chameleon** infers the appropriate sequence of tools to compose and execute in order to generate a final response. 
+**Chameleon** is a plug-and-play compositional reasoning framework that augments LLMs with various types of tools. **Chameleon** synthesizes programs to compose various tools, including LLM models, off-the-shelf vision models, web search engines, Python functions, and rule-based modules tailored to user interests. Built on top of an LLM as a natural language planner, **Chameleon** infers the appropriate sequence of tools to compose and execute in order to generate a final response.
 
 ![showcase_scienceqa](assets/showcase_scienceqa.png)
 
@@ -51,12 +137,9 @@ We would like to express our immense gratitude to [WorldofAI](https://www.youtub
 
 [![YouTube Video](https://img.youtube.com/vi/EWFixIk4vjs/0.jpg)](https://www.youtube.com/watch?v=EWFixIk4vjs)
 
-
-
 ## :star: Star History
 
 [![Star History Chart](https://api.star-history.com/svg?repos=lupantech/chameleon-llm&type=Date)](https://star-history.com/#lupantech/chameleon-llm&Date)
-
 
 ## 🐙 Requirements
 
@@ -81,8 +164,6 @@ Install all required python dependencies (you can skip this step if you have set
 pip install -r requirements.txt
 ```
 
-
-
 ## ⚠️ Configuration ⚠️
 
 ### OpenAI API Key
@@ -99,13 +180,11 @@ Obtain your Bing Search API key from: https://www.microsoft.com/en-us/bing/apis/
 
 The Bing Search API key is **optional**. Failure to set up this key will lead to a slight performance drop on the ScienceQA task.
 
-
-
 ## :hammer_and_wrench: Module Inventory
 
 ### Different Tools in Chameleon
 
- Different types of tools in our module inventory:
+Different types of tools in our module inventory:
 
 ![tools](assets/tools.png)
 
@@ -114,8 +193,6 @@ The Bing Search API key is **optional**. Failure to set up this key will lead to
 Tools used on ScienceQA and TabMWP, respectively. The reusable tools in two tasks are highlighted in green:
 
 ![tools_task](assets/tools_task.png)
-
-
 
 ## 🤖 Run Chameleon on ScienceQA
 
@@ -139,7 +216,7 @@ python run.py \
 --test_number -1
 ```
 
-It will generate the predictions and save the results at `results/scienceqa/chameleon_gpt4_test.json`,  `results/scienceqa/chameleon_gpt4_test_cache.jsonl`, and  `results/scienceqa/chameleon_gpt4_test_cache.json`.
+It will generate the predictions and save the results at `results/scienceqa/chameleon_gpt4_test.json`, `results/scienceqa/chameleon_gpt4_test_cache.jsonl`, and `results/scienceqa/chameleon_gpt4_test_cache.json`.
 
 We can get the accuracy metrics on average and across different question classes by running:
 
@@ -164,7 +241,7 @@ python run.py \
 --test_number -1
 ```
 
-Our **Chameleon** is a generalized form of the [CoT (chain-of-thought)](https://arxiv.org/abs/2201.11903) method, where the generated program is a sequence of `Solution Generator` and `Answer Generator`. By passing `--model` as `cot`,  `modules` is set as `["solution_generator", "answer_generator"]`.
+Our **Chameleon** is a generalized form of the [CoT (chain-of-thought)](https://arxiv.org/abs/2201.11903) method, where the generated program is a sequence of `Solution Generator` and `Answer Generator`. By passing `--model` as `cot`, `modules` is set as `["solution_generator", "answer_generator"]`.
 
 To run CoT (chain-of-thought prompted) GPT-4:
 
@@ -187,8 +264,6 @@ python run.py \
 --test_split test \
 --test_number -1
 ```
-
-
 
 ## 🤖 Run Chameleon on TabMWP
 
@@ -215,7 +290,7 @@ python run.py \
 --cl_cell_threshold 18
 ```
 
-It will generate the predictions and save the results at `results/tabmwp/chameleon_gpt4_test.json`,  `results/tabmwp/chameleon_gpt4_test_cache.jsonl`, and  `results/tabmwp/chameleon_gpt4_test_cache.json`.
+It will generate the predictions and save the results at `results/tabmwp/chameleon_gpt4_test.json`, `results/tabmwp/chameleon_gpt4_test_cache.jsonl`, and `results/tabmwp/chameleon_gpt4_test_cache.json`.
 
 We can get the accuracy metrics on average and across different question classes by running:
 
@@ -267,7 +342,7 @@ python run.py \
 --test_number -1
 ```
 
-Our **Chameleon** is a generalized form of the [PoT (program-of-thought)](https://arxiv.org/abs/2211.12588) method, where the generated program is a sequence of `Program Generator`,  `Program Executor`, and `Answer Generator`. By passing `--model` as `pot`,  `modules` is set as `["program_generator", "program_executor", "answer_generator"]`.
+Our **Chameleon** is a generalized form of the [PoT (program-of-thought)](https://arxiv.org/abs/2211.12588) method, where the generated program is a sequence of `Program Generator`, `Program Executor`, and `Answer Generator`. By passing `--model` as `pot`, `modules` is set as `["program_generator", "program_executor", "answer_generator"]`.
 
 To run PoT (program-of-thought prompted) GPT-4:
 
@@ -297,23 +372,21 @@ python run.py \
 
 ![showcase_scienceqa_more](assets/showcase_scienceqa_more.png)
 
-**Chameleon** (GPT-4) is able to adapt to different input queries by generating programs that compose various tools and executing them sequentially to obtain the correct answers. 
+**Chameleon** (GPT-4) is able to adapt to different input queries by generating programs that compose various tools and executing them sequentially to obtain the correct answers.
 
-For instance, the query above asks, “Which animal’s skin is adapted for survival in cold places?”, which involves scientific terminology related to animal survival. Consequently, the planner decides to rely on the *Bing search* engine for domain-specific knowledge, benefiting from the numerous online resources available.
+For instance, the query above asks, "Which animal's skin is adapted for survival in cold places?", which involves scientific terminology related to animal survival. Consequently, the planner decides to rely on the _Bing search_ engine for domain-specific knowledge, benefiting from the numerous online resources available.
 
 ### More examples on TabMWP
 
 ![showcase_tabmwp_long](assets/showcase_tabmwp_long.png)
 
-The adaptability and versatility of our **Chameleon** for various queries are also observed on TabMWP, as illustrated in the examples in the figure above. 
+The adaptability and versatility of our **Chameleon** for various queries are also observed on TabMWP, as illustrated in the examples in the figure above.
 
-The first example involves mathematical reasoning on a tax form. **Chameleon** (1) calls the knowledge retrieval model to recall basic knowledge that assists in understanding such domain-specific tables, (2) describes the table in a more readable natural language format, and (3) finally relies on program-aided tools to perform precise computations. 
+The first example involves mathematical reasoning on a tax form. **Chameleon** (1) calls the knowledge retrieval model to recall basic knowledge that assists in understanding such domain-specific tables, (2) describes the table in a more readable natural language format, and (3) finally relies on program-aided tools to perform precise computations.
 
-In the second example, the system generates Python code that closely aligns with the background knowledge provided by the knowledge retrieval model. 
+In the second example, the system generates Python code that closely aligns with the background knowledge provided by the knowledge retrieval model.
 
 The third example requires the system to locate the cell in a large tabular context given the input query. **Chameleon** calls the row lookup model to help accurately locate the relevant rows and generate the language solution via an LLM model, instead of relying on program-based tools.
-
-
 
 ## :chart_with_upwards_trend: How Good is Chameleon?
 
@@ -322,8 +395,6 @@ Significant improvements are observed for **Chameleon** over both fine-tuned mod
 ![results](assets/results.png)
 
 To visualize the predictions made by **Chameleon**, simply execute the Jupyter Notebook corresponding to your specific task: `notebooks/results_viewer_[TASK].ipynb`. This will provide an interactive and user-friendly way to explore the results generated by the model. Alternatively, explore our [project page](https://chameleon-llm.github.io/) for more information and options.
-
-
 
 ## :slot_machine: What Plans Are Chameleon Learning?
 
@@ -347,11 +418,7 @@ Transitions between modules in programs generated by **Chameleon** (GPT-4) on Sc
 
 Transitions between modules in programs generated by **Chameleon** (GPT-4) on TabMWPQA. START is the start symbol, END is a terminal symbol and the others are non-terminal symbols.
 
-
-
 <img src="assets/transition_tabmwp_gpt4.png" width=55% height=55%>
-
-
 
 ## :smile_cat: Want to Develop A New Task?
 
@@ -360,14 +427,9 @@ Transitions between modules in programs generated by **Chameleon** (GPT-4) on Ta
 - **Implement the data loader and evaluation method**: Define the data loader within `model.py`. To modify the evaluation method, update the corresponding section in `main.py`.
 - **Enjoy the process**: With the groundwork in place, it's time to have fun and dive into the task at hand!
 
-
-
 ## :coffee: Stay Connected!
 
 Fantastic! I'm always open to engaging discussions, collaborations, or even just sharing a virtual coffee. To get in touch, visit [Pan Lu](https://lupantech.github.io/)'s homepage for contact information.
-
-
-
 
 ## :white_check_mark: Cite
 
