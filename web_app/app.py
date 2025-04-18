@@ -55,10 +55,10 @@ def check_api_keys():
 
 def stream_process_output(process, queue):
     """프로세스의 출력을 큐에 저장하는 함수"""
-    for line in iter(process.stdout.readline, b''):
-        queue.put(('stdout', line.decode('utf-8')))
-    for line in iter(process.stderr.readline, b''):
-        queue.put(('stderr', line.decode('utf-8')))
+    for line in iter(process.stdout.readline, ''):
+        queue.put(('stdout', line))
+    for line in iter(process.stderr.readline, ''):
+        queue.put(('stderr', line))
     process.stdout.close()
     process.stderr.close()
 
