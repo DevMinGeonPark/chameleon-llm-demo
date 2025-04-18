@@ -3,7 +3,6 @@ import sys
 import json
 import argparse
 import random
-from tqdm import tqdm
 
 # add the parent directory to the path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) 
@@ -11,6 +10,18 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from utilities import *
 from model import solver
 
+# tqdm이 없을 경우를 위한 대체 함수
+def progress_bar(iterable, desc=None, total=None):
+    try:
+        from tqdm import tqdm
+        return tqdm(iterable, desc=desc, total=total)
+    except ImportError:
+        if desc:
+            print(desc)
+        for i, item in enumerate(iterable):
+            if total and i % 10 == 0:
+                print(f"Progress: {i}/{total}")
+            yield item
 
 def parse_args():
     parser = argparse.ArgumentParser()
@@ -84,7 +95,7 @@ if __name__ == "__main__":
         print(f"Count: {count}, Correct: {correct}, Wrong: {wrong}")
     pids = solver.pids[count:] # only use the remaining problems
 
-    for pid in tqdm(pids):
+    for pid in progress_bar(pids):
         solver.cache = {"pid": pid} # clear the cache
 
         if args.debug or count < 10:
