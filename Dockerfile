@@ -37,4 +37,8 @@ ENV DATA_ROOT=/app/data
 ENV OUTPUT_ROOT=/app/results
 
 # Command to run the application
-CMD ["streamlit", "run", "web_app/app.py"] 
+CMD ["streamlit", "run", "web_app/app.py"] docker run -it --rm \
+-p 8501:8501 \
+-v $(pwd)/data:/app/data \
+-v $(pwd)/results:/app/results \
+chameleon-new
