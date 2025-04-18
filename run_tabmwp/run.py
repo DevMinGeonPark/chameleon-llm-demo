@@ -3,16 +3,10 @@ import sys
 import json
 import argparse
 import random
-try:
-    from tqdm import tqdm
-except ImportError:
-    def tqdm(iterable, **kwargs):
-        return iterable
+from tqdm import tqdm
 
 # add the parent directory to the path
-current_dir = os.path.dirname(os.path.abspath(__file__))
-parent_dir = os.path.dirname(current_dir)
-sys.path.append(parent_dir)
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) 
 
 from utilities import *
 from model import solver

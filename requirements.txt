@@ -1,18 +1,13 @@
-streamlit==1.32.0
-openai==0.23.0
-pandas==1.4.3
-numpy==1.23.2
-transformers==4.21.1
 huggingface-hub
+numpy==1.23.2
+openai==0.28.1
+pandas==1.4.3
+transformers==4.21.1
 requests==2.28.1
-python-dotenv==1.0.0
-fastapi==0.109.2
-uvicorn==0.27.1
-pydantic==2.6.1
-tqdm==4.66.1
+fastapi==0.68.1
+uvicorn==0.15.0
+streamlit==1.10.0
 python-multipart==0.0.5
 altair==4.2.2
 func_timeout==4.3.5
-openai==0.28.1
-python-dotenv==1.0.0
 
