@@ -1,14 +1,13 @@
 services:
   - type: web
     name: chameleon-llm-demo
-    env: python
-    buildCommand: |
-      pip install -r requirements.txt
-    startCommand: streamlit run web_app/app.py
+    env: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
     envVars:
-      - key: PYTHONPATH
-        value: /app
-      - key: OPENAI_API_KEY
-        sync: false
-      - key: BING_SEARCH_API_KEY
-        sync: false
+      - key: DATA_ROOT
+        value: /app/data
+      - key: OUTPUT_ROOT
+        value: /app/results
+    healthCheckPath: /
+    autoDeploy: true
