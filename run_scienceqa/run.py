@@ -37,10 +37,6 @@ def parse_args():
     parser.add_argument('--qg_temperature', type=float, default=0., help='temperature for query generator')
     parser.add_argument('--qg_max_tokens', type=int, default=64, help='max tokens for query generator')
     parser.add_argument('--qg_patience', type=int, default=5, help='patience for query generator')
-    # bing search
-    parser.add_argument('--bing_file', type=str, default='../data/scienceqa/bing_responses.json')
-    parser.add_argument('--endpoint', type=str, default='https://api.bing.microsoft.com/v7.0/search')
-    parser.add_argument('--search_count', type=int, default=1, help='search number for bing search')
     # image captioner
     parser.add_argument('--use_caption', action='store_true', help='use image captions or not')
     parser.add_argument('--caption_file', type=str, default='../data/scienceqa/captions.json')
