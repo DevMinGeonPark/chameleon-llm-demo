@@ -9,4 +9,8 @@ python-dotenv==1.0.0
 fastapi==0.109.2
 uvicorn==0.27.1
 pydantic==2.6.1
+tqdm==4.66.1
+python-multipart==0.0.5
+altair==4.2.2
+func_timeout==4.3.5
 
