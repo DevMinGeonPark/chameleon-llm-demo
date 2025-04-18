@@ -13,4 +13,6 @@ tqdm==4.66.1
 python-multipart==0.0.5
 altair==4.2.2
 func_timeout==4.3.5
+openai==0.28.1
+python-dotenv==1.0.0
 
