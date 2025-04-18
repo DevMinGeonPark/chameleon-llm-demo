@@ -366,8 +366,21 @@ elif page == "Results Analysis":
     
     if selected_result and st.button("Load Results"):
         try:
-            with open(selected_result, 'r') as f:
-                results = json.load(f)
-                display_results(results)
+            with open(selected_result, 'r', encoding='utf-8') as f:
+                # 파일 내용을 한 줄씩 읽어서 유효한 JSON 객체만 파싱
+                results = []
+                for line in f:
+                    line = line.strip()
+                    if line:  # 빈 줄이 아닌 경우에만 처리
+                        try:
+                            result = json.loads(line)
+                            results.append(result)
+                        except json.JSONDecodeError:
+                            continue
+                
+                if results:
+                    display_results(results)
+                else:
+                    st.error("No valid JSON data found in the file")
         except Exception as e:
             st.error(f"Error loading results: {str(e)}")
